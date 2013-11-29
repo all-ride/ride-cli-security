@@ -1,0 +1,118 @@
+{
+    "dependencies": [
+        {
+            "interfaces": "pallo\\library\\cli\\command\\Command", 
+            "class": "pallo\\cli\\command\\security\\PathSearchCommand",
+            "id": "path.search",
+            "calls": ["setSecurityManager"]
+        },
+        {
+            "interfaces": "pallo\\library\\cli\\command\\Command", 
+            "class": "pallo\\cli\\command\\security\\PathSecureCommand",
+            "id": "path.secure",
+            "calls": ["setSecurityManager"]
+        },
+        {
+            "interfaces": "pallo\\library\\cli\\command\\Command", 
+            "class": "pallo\\cli\\command\\security\\PathUnsecureCommand",
+            "id": "path.unsecure",
+            "calls": ["setSecurityManager"]
+        },
+        {
+            "interfaces": "pallo\\library\\cli\\command\\Command", 
+            "class": "pallo\\cli\\command\\security\\RoleAddCommand",
+            "id": "role.add",
+            "calls": ["setSecurityManager"]
+        },
+        {
+            "interfaces": "pallo\\library\\cli\\command\\Command", 
+            "class": "pallo\\cli\\command\\security\\RoleAllowCommand",
+            "id": "role.allow",
+            "calls": ["setSecurityManager"]
+        },
+        {
+            "interfaces": "pallo\\library\\cli\\command\\Command", 
+            "class": "pallo\\cli\\command\\security\\RoleDeleteCommand",
+            "id": "role.delete",
+            "calls": ["setSecurityManager"]
+        },
+        {
+            "interfaces": "pallo\\library\\cli\\command\\Command", 
+            "class": "pallo\\cli\\command\\security\\RoleDenyCommand",
+            "id": "role.deny",
+            "calls": ["setSecurityManager"]
+        },
+        {
+            "interfaces": "pallo\\library\\cli\\command\\Command", 
+            "class": "pallo\\cli\\command\\security\\RoleDetailCommand",
+            "id": "role.detail",
+            "calls": ["setSecurityManager"]
+        },
+        {
+            "interfaces": "pallo\\library\\cli\\command\\Command", 
+            "class": "pallo\\cli\\command\\security\\RoleDisallowCommand",
+            "id": "role.disallow",
+            "calls": ["setSecurityManager"]
+        },
+        {
+            "interfaces": "pallo\\library\\cli\\command\\Command", 
+            "class": "pallo\\cli\\command\\security\\RoleGrantCommand",
+            "id": "role.grant",
+            "calls": ["setSecurityManager"]
+        },
+        {
+            "interfaces": "pallo\\library\\cli\\command\\Command", 
+            "class": "pallo\\cli\\command\\security\\RoleSearchCommand",
+            "id": "role.search",
+            "calls": ["setSecurityManager"]
+        },
+        {
+            "interfaces": "pallo\\library\\cli\\command\\Command", 
+            "class": "pallo\\cli\\command\\security\\UserAddCommand",
+            "id": "user.add",
+            "calls": ["setSecurityManager"]
+        },
+        {
+            "interfaces": "pallo\\library\\cli\\command\\Command", 
+            "class": "pallo\\cli\\command\\security\\UserAssignCommand",
+            "id": "user.assign",
+            "calls": ["setSecurityManager"]
+        },
+        {
+            "interfaces": "pallo\\library\\cli\\command\\Command", 
+            "class": "pallo\\cli\\command\\security\\UserDeleteCommand",
+            "id": "user.delete",
+            "calls": ["setSecurityManager"]
+        },
+        {
+            "interfaces": "pallo\\library\\cli\\command\\Command", 
+            "class": "pallo\\cli\\command\\security\\UserDetailCommand",
+            "id": "user.detail",
+            "calls": ["setSecurityManager"]
+        },
+        {
+            "interfaces": "pallo\\library\\cli\\command\\Command", 
+            "class": "pallo\\cli\\command\\security\\UserPreferenceCommand",
+            "id": "user.preference",
+            "calls": ["setSecurityManager"]
+        },
+        {
+            "interfaces": "pallo\\library\\cli\\command\\Command", 
+            "class": "pallo\\cli\\command\\security\\UserEditCommand",
+            "id": "user.edit",
+            "calls": ["setSecurityManager"]
+        },
+        {
+            "interfaces": "pallo\\library\\cli\\command\\Command", 
+            "class": "pallo\\cli\\command\\security\\UserSearchCommand",
+            "id": "user.search",
+            "calls": ["setSecurityManager"]
+        },
+        {
+            "interfaces": "pallo\\library\\cli\\command\\Command", 
+            "class": "pallo\\cli\\command\\security\\UserUnassignCommand",
+            "id": "user.unassign",
+            "calls": ["setSecurityManager"]
+        }
+    ]
+}
