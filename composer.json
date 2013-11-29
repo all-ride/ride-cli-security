@@ -1,0 +1,23 @@
+{
+    "name": "pallo/cli-security",
+    "description": "Security commands for the CLI of a Pallo application",
+    "license": "MIT",
+    "version": "0.1.0",
+    "authors": [
+        {
+            "name": "Joris Vandeweerd",
+            "email": "joris@statik.be"
+        }
+    ],
+    "require": {
+        "pallo/app": ">=0.4.0",
+        "pallo/cli": ">=0.4.0",
+        "pallo/lib-cli": ">=0.1.0",
+        "pallo/lib-security": ">=0.1.2"
+    }, 
+    "autoload": {
+        "psr-0": {
+            "pallo\\cli\\command\\security\\": ["src/", "test/src/"]
+        }
+    }
+}
