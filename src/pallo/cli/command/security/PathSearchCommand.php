@@ -46,7 +46,7 @@ class PathSearchCommand extends AbstractSecurityCommand {
         }
 
         foreach ($roles as $role) {
-            $paths = $role->getRolePaths();
+            $paths = $role->getPaths();
 
             if ($query) {
                 foreach ($paths as $index => $path) {
@@ -63,7 +63,7 @@ class PathSearchCommand extends AbstractSecurityCommand {
             }
 
             $this->output->writeLine('');
-            $this->output->writeLine($role->getRoleName() . ':');
+            $this->output->writeLine($role->getName() . ':');
             foreach ($paths as $path) {
                 $this->output->writeLine($path);
             }

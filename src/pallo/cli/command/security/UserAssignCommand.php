@@ -43,6 +43,9 @@ class UserAssignCommand extends AbstractSecurityCommand {
         $roles = $user->getRoles();
         $roles[$role->getId()] = $role;
 
+        var_export($user);
+        var_export($roles);
+
         $model->setRolesToUser($user, $roles);
     }
 

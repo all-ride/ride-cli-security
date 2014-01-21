@@ -38,7 +38,7 @@ class RoleDetailCommand extends AbstractSecurityCommand {
 
         $paths = $role->getPaths();
         if ($paths) {
-            $output->writeLine('Allowed paths:');
+            $this->output->writeLine('Allowed paths:');
             foreach ($paths as $path) {
                 $this->output->writeLine('- ' . $path);
             }
