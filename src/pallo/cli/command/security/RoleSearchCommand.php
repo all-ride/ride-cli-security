@@ -28,7 +28,7 @@ class RoleSearchCommand extends AbstractSecurityCommand {
         $roles = $securityModel->findRolesByName($query);
 
         foreach ($roles as $role) {
-            $this->output->write($role->getId() . ': ' . $role);
+            $this->output->writeLine($role->getId() . ': ' . $role);
         }
     }
 
