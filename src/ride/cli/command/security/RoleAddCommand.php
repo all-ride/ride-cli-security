@@ -1,6 +1,6 @@
 <?php
 
-namespace pallo\cli\command\security;
+namespace ride\cli\command\security;
 
 /**
  * Command to add a new role
