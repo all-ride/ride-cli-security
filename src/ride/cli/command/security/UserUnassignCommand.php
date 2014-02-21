@@ -1,20 +1,20 @@
 <?php
 
-namespace pallo\cli\command\security;
+namespace ride\cli\command\security;
 
-use pallo\library\security\exception\SecurityException;
+use ride\library\security\exception\SecurityException;
 
 /**
  * Command to assign a role to a user
  */
-class UserAssignCommand extends AbstractSecurityCommand {
+class UserUnassignCommand extends AbstractSecurityCommand {
 
     /**
      * Constructs a new user assign command
      * @return null
      */
     public function __construct() {
-        parent::__construct('user assign', 'Assigns a role to a user.');
+        parent::__construct('user unassign', 'Removes a role from a user.');
 
         $this->addArgument('username', 'Username to identify the user');
         $this->addArgument('role', 'Name to identify the role');
@@ -41,12 +41,11 @@ class UserAssignCommand extends AbstractSecurityCommand {
         }
 
         $roles = $user->getRoles();
-        $roles[$role->getId()] = $role;
-
-        var_export($user);
-        var_export($roles);
-
-        $model->setRolesToUser($user, $roles);
+        if (isset($roles[$role->getId()])) {
+            unset($roles[$role->getId()]);
+        } else {
+            throw new SecurityException('Role ' . $roleName . ' is not assigned to user ' . $username . '.');
+        }
     }
 
 }

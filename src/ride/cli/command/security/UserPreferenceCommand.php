@@ -1,8 +1,8 @@
 <?php
 
-namespace pallo\cli\command\security;
+namespace ride\cli\command\security;
 
-use pallo\library\security\exception\SecurityException;
+use ride\library\security\exception\SecurityException;
 
 /**
  * Command to set a preference of a user

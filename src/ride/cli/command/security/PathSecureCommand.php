@@ -1,18 +1,18 @@
 <?php
 
-namespace pallo\cli\command\security;
+namespace ride\cli\command\security;
 
 /**
- * Command to unsecure a path
+ * Command to secure a path
  */
-class PathUnsecureCommand extends AbstractSecurityCommand {
+class PathSecureCommand extends AbstractSecurityCommand {
 
     /**
-     * Constructs a path unsecure command
+     * Constructs a new translation unset command
      * @return null
      */
     public function __construct() {
-        parent::__construct('path unsecure', 'Removes a path from the secured paths.');
+        parent::__construct('path secure', 'Adds a path to the secured paths.');
 
         $this->addArgument('path', 'Path regular expression');
     }
@@ -28,11 +28,13 @@ class PathUnsecureCommand extends AbstractSecurityCommand {
 
         $paths = $securityModel->getSecuredPaths();
 
-        foreach ($paths as $index => $securedPath) {
+        foreach ($paths as $securedPath) {
             if ($path == $securedPath) {
-                unset($paths[$index]);
+                return;
             }
         }
+
+        $paths[] = $path;
 
         $securityModel->setSecuredPaths($paths);
     }

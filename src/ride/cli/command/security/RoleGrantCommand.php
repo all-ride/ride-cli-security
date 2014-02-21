@@ -1,20 +1,20 @@
 <?php
 
-namespace pallo\cli\command\security;
+namespace ride\cli\command\security;
 
-use pallo\library\security\exception\SecurityException;
+use ride\library\security\exception\SecurityException;
 
 /**
- * Command to remove a granted permission from a role
+ * Command to grant a permission to a role
  */
-class RoleDenyCommand extends AbstractSecurityCommand {
+class RoleGrantCommand extends AbstractSecurityCommand {
 
     /**
      * Constructs a new translation unset command
      * @return null
      */
     public function __construct() {
-        parent::__construct('role deny', 'Removes a granted permission from a role.');
+        parent::__construct('role grant', 'Grants a permission to a role.');
 
         $this->addArgument('name', 'Name of the role');
         $this->addArgument('permission', 'Code of the permission');
@@ -36,21 +36,19 @@ class RoleDenyCommand extends AbstractSecurityCommand {
         }
 
         if (!$securityModel->hasPermission($permission)) {
-            return;
+            $securityModel->registerPermission($permission);
         }
 
-        $grantedPermissions = array();
+        $grantedPermissions = array(
+            $permission => $permission,
+        );
 
         $permissions = $role->getPermissions();
         foreach ($permissions as $rolePermission) {
             $grantedPermissions[$rolePermission->getCode()] = $rolePermission->getCode();
         }
 
-        if (isset($grantedPermissions[$permission])) {
-            unset($grantedPermissions[$permission]);
-
-            $securityModel->setGrantedPermissionsToRole($role, $grantedPermissions);
-        }
+        $securityModel->setGrantedPermissionsToRole($role, $grantedPermissions);
     }
 
 }

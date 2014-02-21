@@ -1,6 +1,6 @@
 {
-    "name": "pallo/cli-security",
-    "description": "Security commands for the CLI of a Pallo application",
+    "name": "ride/cli-security",
+    "description": "Security commands for the CLI of a Ride application",
     "license": "MIT",
     "version": "0.1.1",
     "authors": [
@@ -10,14 +10,14 @@
         }
     ],
     "require": {
-        "pallo/app": ">=0.4.0",
-        "pallo/cli": ">=0.4.0",
-        "pallo/lib-cli": ">=0.1.0",
-        "pallo/lib-security": ">=0.1.2"
+        "ride/app": ">=0.4.0",
+        "ride/cli": ">=0.4.0",
+        "ride/lib-cli": ">=0.1.0",
+        "ride/lib-security": ">=0.1.2"
     }, 
     "autoload": {
         "psr-0": {
-            "pallo\\cli\\command\\security\\": ["src/", "test/src/"]
+            "ride\\cli\\command\\security\\": ["src/", "test/src/"]
         }
     }
 }
