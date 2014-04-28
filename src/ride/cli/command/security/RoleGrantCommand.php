@@ -16,7 +16,7 @@ class RoleGrantCommand extends AbstractSecurityCommand {
     public function __construct() {
         parent::__construct('role grant', 'Grants a permission to a role.');
 
-        $this->addArgument('name', 'Name of the role');
+        $this->addArgument('role', 'Name or id of the role');
         $this->addArgument('permission', 'Code of the permission');
     }
 
@@ -25,18 +25,15 @@ class RoleGrantCommand extends AbstractSecurityCommand {
      * @return null
      */
     public function execute() {
-        $name = $this->input->getArgument('name');
+        $role = $this->input->getArgument('role');
+        $role = $this->getRole($role);
+
         $permission = $this->input->getArgument('permission');
 
         $securityModel = $this->securityManager->getSecurityModel();
 
-        $role = $securityModel->getRoleByName($name);
-        if (!$role) {
-            throw new SecurityException('Could not find role ' . $name);
-        }
-
         if (!$securityModel->hasPermission($permission)) {
-            $securityModel->registerPermission($permission);
+            $securityModel->addPermission($permission);
         }
 
         $grantedPermissions = array(

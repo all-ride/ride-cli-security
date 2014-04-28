@@ -16,7 +16,7 @@ class UserDeleteCommand extends AbstractSecurityCommand {
     public function __construct() {
         parent::__construct('user delete', 'Deletes a user from the security model.');
 
-        $this->addArgument('username', 'Username to identify the user');
+        $this->addArgument('user', 'Username or id to identify the user');
     }
 
     /**
@@ -24,15 +24,10 @@ class UserDeleteCommand extends AbstractSecurityCommand {
      * @return null
      */
     public function execute() {
-        $username = $this->input->getArgument('username');
+        $user = $this->input->getArgument('user');
+        $user = $this->getUser($user);
 
         $model = $this->securityManager->getSecurityModel();
-
-        $user = $model->getUserByUsername($username);
-        if (!$user) {
-            throw new SecurityException('User ' . $username . ' not found.');
-        }
-
         $model->deleteUser($user);
     }
 

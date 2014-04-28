@@ -16,7 +16,7 @@ class RoleDeleteCommand extends AbstractSecurityCommand {
     public function __construct() {
         parent::__construct('role delete', 'Deletes a role from the security model.');
 
-        $this->addArgument('name', 'Name to identify the role');
+        $this->addArgument('role', 'Name or id to identify the role');
     }
 
     /**
@@ -24,15 +24,10 @@ class RoleDeleteCommand extends AbstractSecurityCommand {
      * @return null
      */
     public function execute() {
-        $name = $this->input->getArgument('name');
+        $role = $this->input->getArgument('role');
+        $role = $this->getRole($role);
 
         $model = $this->securityManager->getSecurityModel();
-
-        $role = $model->getRoleByName($name);
-        if (!$role) {
-            throw new SecurityException('Role ' . $name . ' not found.');
-        }
-
         $model->deleteRole($role);
     }
 

@@ -16,7 +16,7 @@ class RoleDetailCommand extends AbstractSecurityCommand {
     public function __construct() {
         parent::__construct('role detail', 'Shows the details of a role.');
 
-        $this->addArgument('name', 'Name of the role');
+        $this->addArgument('role', 'Name or id of the role');
     }
 
     /**
@@ -24,14 +24,8 @@ class RoleDetailCommand extends AbstractSecurityCommand {
      * @return null
      */
     public function execute() {
-        $name = $this->input->getArgument('name');
-
-        $model = $this->securityManager->getSecurityModel();
-
-        $role = $model->getRoleByName($name);
-        if (!$role) {
-            throw new SecurityException('Role ' . $name . ' not found.');
-        }
+        $role = $this->input->getArgument('role');
+        $role = $this->getRole($role);
 
         $this->output->writeLine('Id: ' . $role->getId());
         $this->output->writeLine('Name: ' . $role->getName());
