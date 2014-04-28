@@ -27,10 +27,10 @@ class UserSearchCommand extends AbstractSecurityCommand {
         $model = $this->securityManager->getSecurityModel();
 
         $query = $this->input->getArgument('query');
-        $users = $model->findUsersByUsername($query);
+        $users = $model->getUsers(array('query' => $query));
 
         foreach ($users as $user) {
-            $this->output->writeLine($user);
+            $this->output->writeLine($user->getId() . ': ' . $user->getDisplayName() . ' (' . $user->getUserName() . ')');
         }
     }
 

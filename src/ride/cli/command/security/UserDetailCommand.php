@@ -16,7 +16,7 @@ class UserDetailCommand extends AbstractSecurityCommand {
     public function __construct() {
         parent::__construct('user detail', 'Shows the details of a user.');
 
-        $this->addArgument('username', 'Username to identify the user');
+        $this->addArgument('user', 'Username or id to identify the user');
     }
 
     /**
@@ -24,14 +24,8 @@ class UserDetailCommand extends AbstractSecurityCommand {
      * @return null
      */
     public function execute() {
-        $username = $this->input->getArgument('username');
-
-        $model = $this->securityManager->getSecurityModel();
-
-        $user = $model->getUserByUsername($username);
-        if (!$user) {
-            throw new SecurityException('User ' . $username . ' not found.');
-        }
+        $user = $this->input->getArgument('user');
+        $user = $this->getUser($user);
 
         $this->output->writeLine('Id: ' . $user->getId());
         $this->output->writeLine('Display name: ' . $user->getDisplayName());
