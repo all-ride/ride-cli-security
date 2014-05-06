@@ -16,7 +16,7 @@ class RoleAllowCommand extends AbstractSecurityCommand {
     public function __construct() {
         parent::__construct('role allow', 'Adds a path to the allowed paths of a role.');
 
-        $this->addArgument('name', 'Name of the role');
+        $this->addArgument('role', 'Name or id of the role');
         $this->addArgument('path', 'Path regular expression');
     }
 
@@ -25,15 +25,10 @@ class RoleAllowCommand extends AbstractSecurityCommand {
      * @return null
      */
     public function execute() {
-        $name = $this->input->getArgument('name');
+        $role = $this->input->getArgument('role');
+        $role = $this->getRole($role);
+
         $path = $this->input->getArgument('path');
-
-        $securityModel = $this->securityManager->getSecurityModel();
-
-        $role = $securityModel->getRoleByName($name);
-        if (!$role) {
-            throw new SecurityException('Could not find role ' . $name);
-        }
 
         $paths = $role->getPaths();
         foreach ($paths as $rolePath) {
@@ -44,6 +39,7 @@ class RoleAllowCommand extends AbstractSecurityCommand {
 
         $paths[] = $path;
 
+        $securityModel = $this->securityManager->getSecurityModel();
         $securityModel->setAllowedPathsToRole($role, $paths);
     }
 

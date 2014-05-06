@@ -16,7 +16,7 @@ class UserEditCommand extends AbstractSecurityCommand {
     public function __construct() {
         parent::__construct('user edit', 'Sets a property of a user');
 
-        $this->addArgument('username', 'Username to identify the user');
+        $this->addArgument('user', 'Username or id to identify the user');
         $this->addArgument('key', 'Key of the property (name, password, email, image, active or super)');
         $this->addArgument('value', 'Value for the property', false);
     }
@@ -26,16 +26,11 @@ class UserEditCommand extends AbstractSecurityCommand {
      * @return null
      */
     public function execute() {
-        $username = $this->input->getArgument('username');
+        $user = $this->input->getArgument('user');
+        $user = $this->getUser($user);
+
         $key = $this->input->getArgument('key');
         $value = $this->input->getArgument('value');
-
-        $model = $this->securityManager->getSecurityModel();
-
-        $user = $model->getUserByUsername($username);
-        if (!$user) {
-            throw new SecurityException('User ' . $username . ' not found.');
-        }
 
         switch ($key) {
             case 'name':
@@ -66,6 +61,7 @@ class UserEditCommand extends AbstractSecurityCommand {
                 throw new SecurityException('Invalid key provided: ' . $key . '. Try name, password, email, image, active or super');
         }
 
+        $model = $this->securityManager->getSecurityModel();
         $model->saveUser($user);
     }
 

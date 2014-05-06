@@ -16,8 +16,8 @@ class UserUnassignCommand extends AbstractSecurityCommand {
     public function __construct() {
         parent::__construct('user unassign', 'Removes a role from a user.');
 
-        $this->addArgument('username', 'Username to identify the user');
-        $this->addArgument('role', 'Name to identify the role');
+        $this->addArgument('user', 'Username or id to identify the user');
+        $this->addArgument('role', 'Name or id to identify the role');
     }
 
     /**
@@ -25,27 +25,21 @@ class UserUnassignCommand extends AbstractSecurityCommand {
      * @return null
      */
     public function execute() {
-        $username = $this->input->getArgument('username');
-        $roleName = $this->input->getArgument('role');
+        $user = $this->input->getArgument('user');
+        $user = $this->getUser($user);
 
-        $model = $this->securityManager->getSecurityModel();
-
-        $user = $model->getUserByUsername($username);
-        if (!$user) {
-            throw new SecurityException('User ' . $username . ' not found.');
-        }
-
-        $role = $model->getRoleByName($roleName);
-        if (!$role) {
-            throw new SecurityException('Role ' . $roleName . ' not found.');
-        }
+        $role = $this->input->getArgument('role');
+        $role = $this->getRole($role);
 
         $roles = $user->getRoles();
         if (isset($roles[$role->getId()])) {
             unset($roles[$role->getId()]);
         } else {
-            throw new SecurityException('Role ' . $roleName . ' is not assigned to user ' . $username . '.');
+            throw new SecurityException('Role ' . $role->getName() . ' is not assigned to user ' . $user->getDisplayName() . '.');
         }
+
+        $model = $this->securityManager->getSecurityModel();
+        $model->setRolesToUser($user, $roles);
     }
 
 }

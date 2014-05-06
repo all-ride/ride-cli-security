@@ -25,7 +25,7 @@ class PathSearchCommand extends AbstractSecurityCommand {
         $securityModel = $this->securityManager->getSecurityModel();
 
         $paths = $securityModel->getSecuredPaths();
-        $roles = $securityModel->findRolesByName(null);
+        $roles = $securityModel->getRoles(null);
 
         $query = $this->input->getArgument('query');
         if ($query) {
