@@ -17,7 +17,7 @@ class UserEditCommand extends AbstractSecurityCommand {
         parent::__construct('user edit', 'Sets a property of a user');
 
         $this->addArgument('user', 'Username or id to identify the user');
-        $this->addArgument('key', 'Key of the property (name, password, email, image, active or super)');
+        $this->addArgument('key', 'Key of the property (name, password, email, confirm, image, active or super)');
         $this->addArgument('value', 'Value for the property', false);
     }
 
@@ -43,6 +43,10 @@ class UserEditCommand extends AbstractSecurityCommand {
                 break;
             case 'email':
                 $user->setEmail($value);
+
+                break;
+            case 'confirm':
+                $user->setIsEmailConfirmed($value ? true : false);
 
                 break;
             case 'image':

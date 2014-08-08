@@ -29,6 +29,7 @@ class RoleDetailCommand extends AbstractSecurityCommand {
 
         $this->output->writeLine('Id: ' . $role->getId());
         $this->output->writeLine('Name: ' . $role->getName());
+        $this->output->writeLine('Weight: ' . $role->getWeight());
 
         $paths = $role->getPaths();
         if ($paths) {
