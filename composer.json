@@ -2,7 +2,7 @@
     "name": "ride/cli-security",
     "description": "Security commands for the CLI of a Ride application",
     "license": "MIT",
-    "version": "0.2.1",
+    "version": "0.3.0",
     "authors": [
         {
             "name": "Joris Vandeweerd",
@@ -13,11 +13,12 @@
         "ride/app": ">=0.4.0",
         "ride/cli": ">=0.4.0",
         "ride/lib-cli": ">=0.1.0",
-        "ride/lib-security": ">=0.3.0"
+        "ride/lib-common": ">=0.4.0",
+        "ride/lib-security": ">=0.4.0"
     },
     "autoload": {
         "psr-0": {
-            "ride\\cli\\command\\security\\": ["src/", "test/src/"]
+            "ride\\cli\\command\\security\\": ["src/"]
         }
     }
 }
