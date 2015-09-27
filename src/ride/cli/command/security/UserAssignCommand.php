@@ -2,7 +2,7 @@
 
 namespace ride\cli\command\security;
 
-use ride\library\security\exception\SecurityException;
+use ride\library\security\SecurityManager;
 
 /**
  * Command to assign a role to a user
@@ -10,32 +10,32 @@ use ride\library\security\exception\SecurityException;
 class UserAssignCommand extends AbstractSecurityCommand {
 
     /**
-     * Constructs a new user assign command
+     * Initializes the command
      * @return null
      */
-    public function __construct() {
-        parent::__construct('user assign', 'Assigns a role to a user.');
+    protected function initialize() {
+        $this->setDescription('Assigns a role to a user.');
 
         $this->addArgument('user', 'Username or id to identify the user');
         $this->addArgument('role', 'Name or id to identify the role');
     }
 
     /**
-     * Executes the command
+     * Invokes the command
+     * @param \ride\library\security\SecurityManager $securityManager
+     * @param string $user 
+     * @param string $role 
      * @return null
      */
-    public function execute() {
-        $user = $this->input->getArgument('user');
-        $user = $this->getUser($user);
-
-        $role = $this->input->getArgument('role');
-        $role = $this->getRole($role);
+    public function invoke(SecurityManager $securityManager, $user, $role) {
+        $user = $this->getUser($securityManager, $user);
+        $role = $this->getRole($securityManager, $role);
 
         $roles = $user->getRoles();
         $roles[$role->getId()] = $role;
 
-        $model = $this->securityManager->getSecurityModel();
-        $model->setRolesToUser($user, $roles);
+        $securityModel = $securityManager->getSecurityModel();
+        $securityModel->setRolesToUser($user, $roles);
     }
 
 }

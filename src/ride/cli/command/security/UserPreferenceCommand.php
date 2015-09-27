@@ -2,7 +2,7 @@
 
 namespace ride\cli\command\security;
 
-use ride\library\security\exception\SecurityException;
+use ride\library\security\SecurityManager;
 
 /**
  * Command to set a preference of a user
@@ -10,11 +10,11 @@ use ride\library\security\exception\SecurityException;
 class UserPreferenceCommand extends AbstractSecurityCommand {
 
     /**
-     * Constructs a new translation unset command
+     * Initializes the command
      * @return null
      */
-    public function __construct() {
-        parent::__construct('user preference', 'Sets a preference of a user');
+    protected function initialize() {
+        $this->setDescription('Sets a preference of a user');
 
         $this->addArgument('user', 'Username or id to identify the user');
         $this->addArgument('key', 'Key of the preference');
@@ -22,20 +22,20 @@ class UserPreferenceCommand extends AbstractSecurityCommand {
     }
 
     /**
-     * Executes the command
+     * Invokes the command
+     * @param \ride\library\security\SecurityManager $securityManager
+     * @param string $user 
+     * @param string $key
+     * @param string $value
      * @return null
      */
-    public function execute() {
-        $user = $this->input->getArgument('user');
-        $user = $this->getUser($user);
-
-        $key = $this->input->getArgument('key');
-        $value = $this->input->getArgument('value');
+    public function invoke(SecurityManager $securityManager, $user, $key, $value = null) {
+        $user = $this->getUser($securityManager, $user);
 
         $user->setPreference($key, $value);
 
-        $model = $this->securityManager->getSecurityModel();
-        $model->saveUser($user);
+        $securityModel = $securityManager->getSecurityModel();
+        $securityModel->saveUser($user);
     }
 
 }

@@ -2,32 +2,37 @@
 
 namespace ride\cli\command\security;
 
+use ride\cli\command\AbstractCommand;
+
+use ride\library\security\SecurityManager;
+
 /**
  * Command to search for a secured path
  */
-class PathSearchCommand extends AbstractSecurityCommand {
+class PathSearchCommand extends AbstractCommand {
 
     /**
-     * Constructs a new translation unset command
+     * Initializes the command
      * @return null
      */
-    public function __construct() {
-        parent::__construct('path', 'Shows an overview of the secured paths.');
+    protected function initialize() {
+        $this->setDescription('Shows an overview of the secured paths.');
 
         $this->addArgument('query', 'Query to search the paths', false, true);
     }
 
     /**
-     * Executes the command
+     * Invokes the command
+     * @param \ride\library\security\SecurityManager $securityManager
+     * @param string $query
      * @return null
      */
-    public function execute() {
-        $securityModel = $this->securityManager->getSecurityModel();
+    public function invoke(SecurityManager $securityManager, $query = null) {
+        $securityModel = $securityManager->getSecurityModel();
 
         $paths = $securityModel->getSecuredPaths();
         $roles = $securityModel->getRoles(null);
 
-        $query = $this->input->getArgument('query');
         if ($query) {
             foreach ($paths as $index => $path) {
                 if (strpos($path, $query) !== false) {

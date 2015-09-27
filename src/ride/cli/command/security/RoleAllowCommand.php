@@ -2,7 +2,7 @@
 
 namespace ride\cli\command\security;
 
-use ride\library\security\exception\SecurityException;
+use ride\library\security\SecurityManager;
 
 /**
  * Command to allow a secured path to a role
@@ -10,25 +10,25 @@ use ride\library\security\exception\SecurityException;
 class RoleAllowCommand extends AbstractSecurityCommand {
 
     /**
-     * Constructs a new translation unset command
+     * Initializes the command
      * @return null
      */
-    public function __construct() {
-        parent::__construct('role allow', 'Adds a path to the allowed paths of a role.');
+    protected function initialize() {
+        $this->setDescription('Adds a path to the allowed paths of a role.');
 
         $this->addArgument('role', 'Name or id of the role');
         $this->addArgument('path', 'Path regular expression');
     }
 
     /**
-     * Executes the command
+     * Invokes the command
+     * @param \ride\library\security\SecurityManager $securityManager
+     * @param string $role 
+     * @param string $path
      * @return null
      */
-    public function execute() {
-        $role = $this->input->getArgument('role');
-        $role = $this->getRole($role);
-
-        $path = $this->input->getArgument('path');
+    public function invoke(SecurityManager $securityManager, $role, $path) {
+        $role = $this->getRole($securityManager, $role);
 
         $paths = $role->getPaths();
         foreach ($paths as $rolePath) {
@@ -39,7 +39,7 @@ class RoleAllowCommand extends AbstractSecurityCommand {
 
         $paths[] = $path;
 
-        $securityModel = $this->securityManager->getSecurityModel();
+        $securityModel = $securityManager->getSecurityModel();
         $securityModel->setAllowedPathsToRole($role, $paths);
     }
 

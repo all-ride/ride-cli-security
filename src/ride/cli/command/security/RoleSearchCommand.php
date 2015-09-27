@@ -2,29 +2,34 @@
 
 namespace ride\cli\command\security;
 
+use ride\cli\command\AbstractCommand;
+
+use ride\library\security\SecurityManager;
+
 /**
  * Command to search for a role
  */
-class RoleSearchCommand extends AbstractSecurityCommand {
+class RoleSearchCommand extends AbstractCommand {
 
     /**
-     * Constructs a new user search command
+     * Initializes the command
      * @return null
      */
-    public function __construct() {
-        parent::__construct('role', 'Shows an overview of the roles.');
+    protected function initialize() {
+        $this->setDescription('Shows an overview of the roles.');
 
         $this->addArgument('query', 'Query to search the roles', false);
     }
 
     /**
-     * Executes the command
+     * Invokes the command
+     * @param \ride\library\security\SecurityManager $securityManager
+     * @param string $query 
      * @return null
      */
-    public function execute() {
-        $securityModel = $this->securityManager->getSecurityModel();
+    public function invoke(SecurityManager $securityManager, $query = null) {
+        $securityModel = $securityManager->getSecurityModel();
 
-        $query = $this->input->getArgument('query');
         $roles = $securityModel->getRoles(array('query' => $query));
 
         foreach ($roles as $role) {

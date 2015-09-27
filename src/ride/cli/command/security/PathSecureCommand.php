@@ -2,29 +2,33 @@
 
 namespace ride\cli\command\security;
 
+use ride\cli\command\AbstractCommand;
+
+use ride\library\security\SecurityManager;
+
 /**
  * Command to secure a path
  */
-class PathSecureCommand extends AbstractSecurityCommand {
+class PathSecureCommand extends AbstractCommand {
 
     /**
-     * Constructs a new translation unset command
+     * Initializes the command
      * @return null
      */
-    public function __construct() {
-        parent::__construct('path secure', 'Adds a path to the secured paths.');
+    protected function initialize() {
+        $this->setDescription('Adds a path to the secured paths.');
 
         $this->addArgument('path', 'Path regular expression');
     }
 
     /**
-     * Executes the command
+     * Invokes the command
+     * @param \ride\library\security\SecurityManager $securityManager
+     * @param string $path
      * @return null
      */
-    public function execute() {
-        $path = $this->input->getArgument('path');
-
-        $securityModel = $this->securityManager->getSecurityModel();
+    public function invoke(SecurityManager $securityManager, $path) {
+        $securityModel = $securityManager->getSecurityModel();
 
         $paths = $securityModel->getSecuredPaths();
 

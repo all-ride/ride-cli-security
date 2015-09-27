@@ -3,6 +3,7 @@
 namespace ride\cli\command\security;
 
 use ride\library\security\exception\SecurityException;
+use ride\library\security\SecurityManager;
 
 /**
  * Command to edit a role
@@ -10,11 +11,11 @@ use ride\library\security\exception\SecurityException;
 class RoleEditCommand extends AbstractSecurityCommand {
 
     /**
-     * Constructs a role edit command
+     * Initializes the command
      * @return null
      */
-    public function __construct() {
-        parent::__construct('role edit', 'Sets a property of a role');
+    protected function initialize() {
+        $this->setDescription('Sets a property of a role');
 
         $this->addArgument('role', 'Name or id of the role');
         $this->addArgument('key', 'Key of the property (name or weight)');
@@ -22,15 +23,15 @@ class RoleEditCommand extends AbstractSecurityCommand {
     }
 
     /**
-     * Executes the command
+     * Invokes the command
+     * @param \ride\library\security\SecurityManager $securityManager
+     * @param string $role 
+     * @param string $key
+     * @param string $value
      * @return null
      */
-    public function execute() {
-        $role = $this->input->getArgument('role');
-        $role = $this->getRole($role);
-
-        $key = $this->input->getArgument('key');
-        $value = $this->input->getArgument('value');
+    public function invoke(SecurityManager $securityManager, $role, $key, $value = null) {
+        $role = $this->getRole($securityManager, $role);
 
         switch ($key) {
             case 'name':
@@ -45,8 +46,8 @@ class RoleEditCommand extends AbstractSecurityCommand {
                 throw new SecurityException('Invalid key provided: ' . $key . '. Try name or weight');
         }
 
-        $model = $this->securityManager->getSecurityModel();
-        $model->saveRole($role);
+        $securityModel = $securityManager->getSecurityModel();
+        $securityModel->saveRole($role);
     }
 
 }

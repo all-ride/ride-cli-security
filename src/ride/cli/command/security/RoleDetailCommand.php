@@ -2,30 +2,31 @@
 
 namespace ride\cli\command\security;
 
-use ride\library\security\exception\SecurityException;
+use ride\library\security\SecurityManager;
 
 /**
- * Command to detail a new role
+ * Command to show the details of a role
  */
 class RoleDetailCommand extends AbstractSecurityCommand {
 
     /**
-     * Constructs a new translation unset command
+     * Initializes the command
      * @return null
      */
-    public function __construct() {
-        parent::__construct('role detail', 'Shows the details of a role.');
+    protected function initialize() {
+        $this->setDescription('Shows the details of a role.');
 
         $this->addArgument('role', 'Name or id of the role');
     }
 
     /**
-     * Executes the command
+     * Invokes the command
+     * @param \ride\library\security\SecurityManager $securityManager
+     * @param string $role 
      * @return null
      */
-    public function execute() {
-        $role = $this->input->getArgument('role');
-        $role = $this->getRole($role);
+    public function invoke(SecurityManager $securityManager, $role) {
+        $role = $this->getRole($securityManager, $role);
 
         $this->output->writeLine('Id: ' . $role->getId());
         $this->output->writeLine('Name: ' . $role->getName());

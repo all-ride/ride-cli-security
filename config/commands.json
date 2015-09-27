@@ -1,0 +1,104 @@
+{
+    "commands": [
+        {
+            "name": "path",
+            "aliases": "sp",
+            "class": "ride\\cli\\command\\security\\PathSearchCommand"
+        },
+        {
+            "name": "path secure",
+            "aliases": "sps",
+            "class": "ride\\cli\\command\\security\\PathSecureCommand"
+        },
+        {
+            "name": "path unsecure",
+            "aliases": "spu",
+            "class": "ride\\cli\\command\\security\\PathUnsecureCommand"
+        },
+        {
+            "name": "role",
+            "aliases": "sr",
+            "class": "ride\\cli\\command\\security\\RoleSearchCommand"
+        },
+        {
+            "name": "role add",
+            "aliases": "sra",
+            "class": "ride\\cli\\command\\security\\RoleAddCommand"
+        },
+        {
+            "name": "role allow",
+            "aliases": "sral",
+            "class": "ride\\cli\\command\\security\\RoleAllowCommand"
+        },
+        {
+            "name": "role delete",
+            "aliases": "srd",
+            "class": "ride\\cli\\command\\security\\RoleDeleteCommand"
+        },
+        {
+            "name": "role deny",
+            "aliases": "srdn",
+            "class": "ride\\cli\\command\\security\\RoleDenyCommand"
+        },
+        {
+            "name": "role detail",
+            "aliases": "srde",
+            "class": "ride\\cli\\command\\security\\RoleDetailCommand"
+        },
+        {
+            "name": "role disallow",
+            "aliases": "srdi",
+            "class": "ride\\cli\\command\\security\\RoleDisallowCommand"
+        },
+        {
+            "name": "role edit",
+            "aliases": "sre",
+            "class": "ride\\cli\\command\\security\\RoleEditCommand"
+        },
+        {
+            "name": "role grant",
+            "aliases": "srg",
+            "class": "ride\\cli\\command\\security\\RoleGrantCommand"
+        },
+        {
+            "name": "user",
+            "aliases": "su",
+            "class": "ride\\cli\\command\\security\\UserSearchCommand"
+        },
+        {
+            "name": "user add",
+            "aliases": "sua",
+            "class": "ride\\cli\\command\\security\\UserAddCommand"
+        },
+        {
+            "name": "user assign",
+            "aliases": "suas",
+            "class": "ride\\cli\\command\\security\\UserAssignCommand"
+        },
+        {
+            "name": "user delete",
+            "aliases": "sud",
+            "class": "ride\\cli\\command\\security\\UserDeleteCommand"
+        },
+        {
+            "name": "user detail",
+            "aliases": "sude",
+            "class": "ride\\cli\\command\\security\\UserDetailCommand"
+        },
+        {
+            "name": "user edit",
+            "aliases": "sue",
+            "class": "ride\\cli\\command\\security\\UserEditCommand"
+        },
+        {
+            "name": "user preference",
+            "aliases": "sup",
+            "class": "ride\\cli\\command\\security\\UserPreferenceCommand"
+        },
+        {
+            "name": "user unassign",
+            "aliases": "suu",
+            "class": "ride\\cli\\command\\security\\UserUnassignCommand"
+        }
+    ]
+}
