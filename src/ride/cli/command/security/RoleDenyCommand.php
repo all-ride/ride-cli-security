@@ -2,7 +2,7 @@
 
 namespace ride\cli\command\security;
 
-use ride\library\security\exception\SecurityException;
+use ride\library\security\SecurityManager;
 
 /**
  * Command to remove a granted permission from a role
@@ -10,28 +10,27 @@ use ride\library\security\exception\SecurityException;
 class RoleDenyCommand extends AbstractSecurityCommand {
 
     /**
-     * Constructs a new translation unset command
+     * Initializes the command
      * @return null
      */
-    public function __construct() {
-        parent::__construct('role deny', 'Removes a granted permission from a role.');
+    protected function initialize() {
+        $this->setDescription('Removes a granted permission from a role.');
 
         $this->addArgument('role', 'Name or id of the role');
         $this->addArgument('permission', 'Code of the permission');
     }
 
     /**
-     * Executes the command
+     * Invokes the command
+     * @param \ride\library\security\SecurityManager $securityManager
+     * @param string $role 
+     * @param string $permission
      * @return null
      */
-    public function execute() {
-        $role = $this->input->getArgument('role');
-        $role = $this->getRole($role);
+    public function invoke(SecurityManager $securityManager, $role, $permission) {
+        $role = $this->getRole($securityManager, $role);
 
-        $permission = $this->input->getArgument('permission');
-
-        $securityModel = $this->securityManager->getSecurityModel();
-
+        $securityModel = $securityManager->getSecurityModel();
         if (!$securityModel->hasPermission($permission)) {
             return;
         }

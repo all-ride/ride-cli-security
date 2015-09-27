@@ -3,6 +3,7 @@
 namespace ride\cli\command\security;
 
 use ride\library\security\exception\SecurityException;
+use ride\library\security\SecurityManager;
 
 /**
  * Command to edit a user
@@ -10,11 +11,11 @@ use ride\library\security\exception\SecurityException;
 class UserEditCommand extends AbstractSecurityCommand {
 
     /**
-     * Constructs a user edit command
+     * Initializes the command
      * @return null
      */
-    public function __construct() {
-        parent::__construct('user edit', 'Sets a property of a user');
+    protected function initialize() {
+        $this->setDescription('Sets a property of a user');
 
         $this->addArgument('user', 'Username or id to identify the user');
         $this->addArgument('key', 'Key of the property (name, password, email, confirm, image, active or super)');
@@ -22,15 +23,13 @@ class UserEditCommand extends AbstractSecurityCommand {
     }
 
     /**
-     * Executes the command
+     * Invokes the command
+     * @param \ride\library\security\SecurityManager $securityManager
+     * @param string $user 
      * @return null
      */
-    public function execute() {
-        $user = $this->input->getArgument('user');
-        $user = $this->getUser($user);
-
-        $key = $this->input->getArgument('key');
-        $value = $this->input->getArgument('value');
+    public function invoke(SecurityManager $securityManager, $user, $key, $value = null) {
+        $user = $this->getUser($securityManager, $user);
 
         switch ($key) {
             case 'name':
@@ -65,8 +64,8 @@ class UserEditCommand extends AbstractSecurityCommand {
                 throw new SecurityException('Invalid key provided: ' . $key . '. Try name, password, email, image, active or super');
         }
 
-        $model = $this->securityManager->getSecurityModel();
-        $model->saveUser($user);
+        $securityModel = $securityManager->getSecurityModel();
+        $securityModel->saveUser($user);
     }
 
 }

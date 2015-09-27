@@ -2,7 +2,7 @@
 
 namespace ride\cli\command\security;
 
-use ride\library\security\exception\SecurityException;
+use ride\library\security\SecurityManager;
 
 /**
  * Command to delete a user
@@ -10,25 +10,26 @@ use ride\library\security\exception\SecurityException;
 class UserDeleteCommand extends AbstractSecurityCommand {
 
     /**
-     * Constructs a new translation unset command
+     * Initializes the command
      * @return null
      */
-    public function __construct() {
-        parent::__construct('user delete', 'Deletes a user from the security model.');
+    protected function initialize() {
+        $this->setDescription('Deletes a user from the security model.');
 
         $this->addArgument('user', 'Username or id to identify the user');
     }
 
     /**
-     * Executes the command
+     * Invokes the command
+     * @param \ride\library\security\SecurityManager $securityManager
+     * @param string $user 
      * @return null
      */
-    public function execute() {
-        $user = $this->input->getArgument('user');
-        $user = $this->getUser($user);
+    public function invoke(SecurityManager $securityManager, $user) {
+        $user = $this->getUser($securityManager, $user);
 
-        $model = $this->securityManager->getSecurityModel();
-        $model->deleteUser($user);
+        $securityModel = $securityManager->getSecurityModel();
+        $securityModel->deleteUser($user);
     }
 
 }

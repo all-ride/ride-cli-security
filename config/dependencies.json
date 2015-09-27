@@ -1,102 +1,10 @@
 {
     "dependencies": [
         {
-            "interfaces": "ride\\library\\cli\\command\\Command",
-            "class": "ride\\cli\\command\\security\\PathSearchCommand",
-            "id": "path.search",
-            "calls": ["setSecurityManager"]
-        },
-        {
-            "interfaces": "ride\\library\\cli\\command\\Command",
-            "class": "ride\\cli\\command\\security\\PathSecureCommand",
-            "id": "path.secure",
-            "calls": ["setSecurityManager"]
-        },
-        {
-            "interfaces": "ride\\library\\cli\\command\\Command",
-            "class": "ride\\cli\\command\\security\\PathUnsecureCommand",
-            "id": "path.unsecure",
-            "calls": ["setSecurityManager"]
-        },
-        {
-            "interfaces": "ride\\library\\cli\\command\\Command",
-            "class": "ride\\cli\\command\\security\\RoleAddCommand",
-            "id": "role.add",
-            "calls": ["setSecurityManager"]
-        },
-        {
-            "interfaces": "ride\\library\\cli\\command\\Command",
-            "class": "ride\\cli\\command\\security\\RoleEditCommand",
-            "id": "role.edit",
-            "calls": ["setSecurityManager"]
-        },
-        {
-            "interfaces": "ride\\library\\cli\\command\\Command",
-            "class": "ride\\cli\\command\\security\\RoleAllowCommand",
-            "id": "role.allow",
-            "calls": ["setSecurityManager"]
-        },
-        {
-            "interfaces": "ride\\library\\cli\\command\\Command",
-            "class": "ride\\cli\\command\\security\\RoleDeleteCommand",
-            "id": "role.delete",
-            "calls": ["setSecurityManager"]
-        },
-        {
-            "interfaces": "ride\\library\\cli\\command\\Command",
-            "class": "ride\\cli\\command\\security\\RoleDenyCommand",
-            "id": "role.deny",
-            "calls": ["setSecurityManager"]
-        },
-        {
-            "interfaces": "ride\\library\\cli\\command\\Command",
-            "class": "ride\\cli\\command\\security\\RoleDetailCommand",
-            "id": "role.detail",
-            "calls": ["setSecurityManager"]
-        },
-        {
-            "interfaces": "ride\\library\\cli\\command\\Command",
-            "class": "ride\\cli\\command\\security\\RoleDisallowCommand",
-            "id": "role.disallow",
-            "calls": ["setSecurityManager"]
-        },
-        {
-            "interfaces": "ride\\library\\cli\\command\\Command",
-            "class": "ride\\cli\\command\\security\\RoleGrantCommand",
-            "id": "role.grant",
-            "calls": ["setSecurityManager"]
-        },
-        {
-            "interfaces": "ride\\library\\cli\\command\\Command",
-            "class": "ride\\cli\\command\\security\\RoleSearchCommand",
-            "id": "role.search",
-            "calls": ["setSecurityManager"]
-        },
-        {
-            "interfaces": "ride\\library\\cli\\command\\Command",
-            "class": "ride\\cli\\command\\security\\UserAddCommand",
-            "id": "user.add",
-            "calls": ["setSecurityManager"]
-        },
-        {
-            "interfaces": "ride\\library\\cli\\command\\Command",
-            "class": "ride\\cli\\command\\security\\UserAssignCommand",
-            "id": "user.assign",
-            "calls": ["setSecurityManager"]
-        },
-        {
-            "interfaces": "ride\\library\\cli\\command\\Command",
-            "class": "ride\\cli\\command\\security\\UserDeleteCommand",
-            "id": "user.delete",
-            "calls": ["setSecurityManager"]
-        },
-        {
-            "interfaces": "ride\\library\\cli\\command\\Command",
             "class": "ride\\cli\\command\\security\\UserDetailCommand",
-            "id": "user.detail",
             "calls": [
                 {
-                    "method": "__construct",
+                    "method": "setPreferenceDecorator",
                     "arguments": [
                         {
                             "name": "preferenceDecorator",
@@ -107,33 +15,8 @@
                             }
                         }
                     ]
-                },
-                "setSecurityManager"
+                }
             ]
-        },
-        {
-            "interfaces": "ride\\library\\cli\\command\\Command",
-            "class": "ride\\cli\\command\\security\\UserPreferenceCommand",
-            "id": "user.preference",
-            "calls": ["setSecurityManager"]
-        },
-        {
-            "interfaces": "ride\\library\\cli\\command\\Command",
-            "class": "ride\\cli\\command\\security\\UserEditCommand",
-            "id": "user.edit",
-            "calls": ["setSecurityManager"]
-        },
-        {
-            "interfaces": "ride\\library\\cli\\command\\Command",
-            "class": "ride\\cli\\command\\security\\UserSearchCommand",
-            "id": "user.search",
-            "calls": ["setSecurityManager"]
-        },
-        {
-            "interfaces": "ride\\library\\cli\\command\\Command",
-            "class": "ride\\cli\\command\\security\\UserUnassignCommand",
-            "id": "user.unassign",
-            "calls": ["setSecurityManager"]
         }
     ]
 }

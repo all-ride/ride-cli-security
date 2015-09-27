@@ -2,19 +2,21 @@
 
 namespace ride\cli\command\security;
 
-use ride\library\security\exception\SecurityException;
+use ride\cli\command\AbstractCommand;
+
+use ride\library\security\SecurityManager;
 
 /**
  * Command to add a new user
  */
-class UserAddCommand extends AbstractSecurityCommand {
+class UserAddCommand extends AbstractCommand {
 
     /**
-     * Constructs a new translation unset command
+     * Initializes the command
      * @return null
      */
-    public function __construct() {
-        parent::__construct('user add', 'Adds a new user to the security model.');
+    protected function initialize() {
+        $this->setDescription('Adds a new user to the security model.');
 
         $this->addArgument('username', 'Username to identify the user');
         $this->addArgument('password', 'Password to authenticate the user');
@@ -22,17 +24,17 @@ class UserAddCommand extends AbstractSecurityCommand {
     }
 
     /**
-     * Executes the command
+     * Invokes the command
+     * @param \ride\library\security\SecurityManager $securityManager
+     * @param string $username
+     * @param string $password
+     * @param string $email 
      * @return null
      */
-    public function execute() {
-        $username = $this->input->getArgument('username');
-        $password = $this->input->getArgument('password');
-        $email = $this->input->getArgument('email');
+    public function invoke(SecurityManager $securityManager, $username, $password, $email) {
+        $securityModel = $securityManager->getSecurityModel();
 
-        $model = $this->securityManager->getSecurityModel();
-
-        $user = $model->createUser();
+        $user = $securityModel->createUser();
         $user->setUserName($username);
         $user->setPassword($password);
         $user->setIsActive(true);
@@ -40,7 +42,7 @@ class UserAddCommand extends AbstractSecurityCommand {
             $user->setEmail($email);
         }
 
-        $model->saveUser($user);
+        $securityModel->saveUser($user);
     }
 
 }

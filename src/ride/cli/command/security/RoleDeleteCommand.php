@@ -2,7 +2,7 @@
 
 namespace ride\cli\command\security;
 
-use ride\library\security\exception\SecurityException;
+use ride\library\security\SecurityManager;
 
 /**
  * Command to delete a role
@@ -10,25 +10,26 @@ use ride\library\security\exception\SecurityException;
 class RoleDeleteCommand extends AbstractSecurityCommand {
 
     /**
-     * Constructs a new translation unset command
+     * Initializes the command
      * @return null
      */
-    public function __construct() {
-        parent::__construct('role delete', 'Deletes a role from the security model.');
+    protected function initialize() {
+        $this->setDescription('Deletes a role from the security model.');
 
         $this->addArgument('role', 'Name or id to identify the role');
     }
 
     /**
-     * Executes the command
+     * Invokes the command
+     * @param \ride\library\security\SecurityManager $securityManager
+     * @param string $role 
      * @return null
      */
-    public function execute() {
-        $role = $this->input->getArgument('role');
-        $role = $this->getRole($role);
+    public function invoke(SecurityManager $securityManager, $role) {
+        $role = $this->getRole($securityManager, $role);
 
-        $model = $this->securityManager->getSecurityModel();
-        $model->deleteRole($role);
+        $securityModel = $securityManager->getSecurityModel();
+        $securityModel->deleteRole($role);
     }
 
 }

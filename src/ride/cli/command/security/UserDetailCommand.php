@@ -3,7 +3,7 @@
 namespace ride\cli\command\security;
 
 use ride\library\decorator\Decorator;
-use ride\library\security\exception\SecurityException;
+use ride\library\security\SecurityManager;
 
 /**
  * Command to detail a new user
@@ -17,24 +17,32 @@ class UserDetailCommand extends AbstractSecurityCommand {
     protected $preferenceDecorator;
 
     /**
-     * Constructs a new translation unset command
+     * Sets the preference decorator
+     * @param \ride\library\decorator\Decorator $preferenceDecorator
      * @return null
      */
-    public function __construct(Decorator $preferenceDecorator) {
-        parent::__construct('user detail', 'Shows the details of a user.');
+    public function setPreferenceDecorator(Decorator $preferenceDecorator) {
+        $this->preferenceDecorator = $preferenceDecorator;
+    }
+    
+    /**
+     * Initializes the command
+     * @return null
+     */
+    protected function initialize() {    
+        $this->setDescription('Shows the details of a user.');
 
         $this->addArgument('user', 'Username or id to identify the user');
-
-        $this->preferenceDecorator = $preferenceDecorator;
     }
 
     /**
-     * Executes the command
+     * Invokes the command
+     * @param \ride\library\security\SecurityManager $securityManager
+     * @param string $user 
      * @return null
      */
-    public function execute() {
-        $user = $this->input->getArgument('user');
-        $user = $this->getUser($user);
+    public function invoke(SecurityManager $securityManager, $user) {
+        $user = $this->getUser($securityManager, $user);
 
         $email = $user->getEmail();
 

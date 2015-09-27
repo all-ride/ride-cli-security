@@ -2,7 +2,7 @@
 
 namespace ride\cli\command\security;
 
-use ride\library\security\exception\SecurityException;
+use ride\library\security\SecurityManager;
 
 /**
  * Command to disallow a secured path for a role
@@ -10,27 +10,24 @@ use ride\library\security\exception\SecurityException;
 class RoleDisallowCommand extends AbstractSecurityCommand {
 
     /**
-     * Constructs a new translation unset command
+     * Initializes the command
      * @return null
      */
-    public function __construct() {
-        parent::__construct('role disallow', 'Removes a path from the allowed paths of a role.');
+    protected function initialize() {
+        $this->setDescription('Removes a path from the allowed paths of a role.');
 
         $this->addArgument('role', 'Name or id of the role');
         $this->addArgument('path', 'Path regular expression');
     }
 
     /**
-     * Executes the command
+     * Invokes the command
      * @return null
      */
-    public function execute() {
-        $role = $this->input->getArgument('role');
-        $role = $this->getRole($role);
+    public function invoke(SecurityManager $securityManager, $role, $path) {
+        $role = $this->getRole($securityManager, $role);
 
-        $path = $this->input->getArgument('path');
-
-        $securityModel = $this->securityManager->getSecurityModel();
+        $securityModel = $securityManager->getSecurityModel();
 
         $paths = $role->getPaths();
         foreach ($paths as $index => $rolePath) {
